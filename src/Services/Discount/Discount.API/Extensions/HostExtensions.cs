@@ -34,19 +34,19 @@ namespace Discount.API.Extensions
                     command.ExecuteNonQuery();
 
                     command.CommandText = @"CREATE TABLE Coupon (Id SERIAL PRIMARY KEY,
-                                                                 ProductionName VARCHAR(24) NOT NULL,
+                                                                 ProductName VARCHAR(24) NOT NULL,
                                                                  Description TEXT,
                                                                  Amount INT)";
                     command.ExecuteNonQuery();
 
-                    command.CommandText = "INSERT INTO Coupon VALUES('IPhone X', 'IPhone discount', 100)";
+                    command.CommandText = "INSERT INTO Coupon(ProductName, Description, Amount) VALUES('IPhone X', 'IPhone Discount', 150);";
                     command.ExecuteNonQuery();
 
                     logger.LogInformation("Migrate postgresql completed");
                 }
                 catch (NpgsqlException ex)
                 {
-                    logger.LogError(ex, "Error in migrate postgresql completed");
+                    logger.LogError(ex, "Error in migrate postgresql completed. retry: " + retryForAvailability);
                     if(retryForAvailability < 50)
                     {
                         retryForAvailability++;
