@@ -69,9 +69,11 @@ services:
       - "6001:80"
   
   discount.api:
+    container_name: discount.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "Server=discountdb;Port=5432;Database=DiscountDB;User Id=admin;Password=admin1234;"
+      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDB;User Id=admin;Password=admin1234;"
+    depends_on:
+      - discountdb
     ports:
-      - "8002:80"
       - "6002:80"
