@@ -14,14 +14,14 @@ namespace Discount.GRPC.Services
     public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
     {
         private readonly IDiscountRepository discountRepository;
-        private readonly ILogger logger;
+        private readonly ILogger<DiscountService> logger;
         private readonly IMapper mapper;
 
-        public DiscountService(IDiscountRepository discountRepository, ILogger logger, IMapper mapper)
+        public DiscountService(IDiscountRepository discountRepository, ILogger<DiscountService> logger, IMapper mapper)
         {
-            this.discountRepository = discountRepository;
-            this.logger = logger;
-            this.mapper = mapper;
+            this.discountRepository = discountRepository ?? throw new ArgumentNullException(nameof(discountRepository));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
