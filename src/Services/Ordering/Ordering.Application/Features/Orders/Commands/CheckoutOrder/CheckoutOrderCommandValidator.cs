@@ -6,12 +6,16 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
     {
         public CheckoutOrderCommandValidator()
         {
-            RuleFor(p => p.UserName).NotEmpty().WithMessage("{Username} is required.")
-                .NotNull().MaximumLength(50).WithMessage("{UserName} must not exceed 50 characters.");
+            RuleFor(p => p.UserName)
+                .NotEmpty().WithMessage("{Username} is required.")
+                .NotNull()
+                .MaximumLength(50).WithMessage("{UserName} must not exceed 50 characters.");
 
-            RuleFor(p => p.EmailAddress).NotEmpty().WithMessage("{Email} is required.");
+            RuleFor(p => p.EmailAddress)
+                .NotEmpty().WithMessage("{Email} is required.");
 
-            RuleFor(p => p.TotalPrice).NotEmpty().WithMessage("{TotalPrice} is required.")
+            RuleFor(p => p.TotalPrice)
+                .NotEmpty().WithMessage("{TotalPrice} is required.")
                 .GreaterThan(0).WithMessage("{TotalPrice} must be greater than 0.");
         }
     }
